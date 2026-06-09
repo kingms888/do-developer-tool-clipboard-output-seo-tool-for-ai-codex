@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>Clipboard Output SEO Tool for AI Codex · Etsy & Shopify sellers</title>
+  <meta name="description" content="Paste any CSV or JSON, get instant SEO‑ready clipboard output. Built for Etsy sellers, Shopify CSV editors, Amazon FBA calculators, and developer productivity.">
+  <meta name="keywords" content="shopify csv editor, etsy listing seo, amazon fba calculator, csv to json converter, developer productivity tool, etsy sellers, amazon sellers, csv/json tools, shopify seller seo, developer tools">
+  <meta name="author" content="Codex Tool Labs">
+  <meta name="robots" content="index, follow">
+  <!-- Open Graph for sharing -->
+  <meta property="og:title" content="Clipboard Output SEO Tool for AI Codex">
+  <meta property="og:description" content="Paste CSV or JSON, get clean, SEO‑optimised clipboard output. For Etsy, Shopify & Amazon sellers.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tool.codex.example">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #f5f7fc;
+      color: #1e1e2f;
+      padding: 1.2rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 1100px;
+      width: 100%;
+      background: white;
+      border-radius: 32px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+      padding: 1.8rem 1.5rem 2rem;
+      transition: 0.2s;
+    }
+    h1 {
+      font-size: 1.9rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.3rem 0.8rem;
+      margin-bottom: 0.25rem;
+    }
+    .badge {
+      background: #eef2ff;
+      color: #2e3a8c;
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      white-space: nowrap;
+    }
+    .subhead {
+      color: #4a4a6a;
+      margin-bottom: 1.8rem;
+      border-left: 4px solid #7c8bff;
+      padding-left: 1rem;
+      font-size: 1rem;
+      background: #f8faff;
+      border-radius: 0 12px 12px 0;
+      line-height: 1.4;
+    }
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0 1.2rem;
+    }
+    @media (max-width: 680px) {
+      .tool-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+      .container {
+        padding: 1.2rem 0.8rem;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+    }
+    .input-area, .output-area {
+      background: #f9faff;
+      border-radius: 24px;
+      padding: 1.2rem 1rem 1rem;
+      border: 1px solid #e9ecf5;
+    }
+    label {
+      font-weight: 500;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #2b2b44;
+      margin-bottom: 0.5rem;
+    }
+    textarea {
+      width: 100%;
+      min-height: 160px;
+      padding: 0.9rem 1rem;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 0.9rem;
+      background: white;
+      border: 1px solid #dce0ec;
+      border-radius: 20px;
+      resize: vertical;
+      transition: 0.15s;
+      line-height: 1.5;
+      color: #1a1a2e;
+    }
+    textarea:focus {
+      outline: 2px solid #7c8bff;
+      border-color: transparent;
+      background: #ffffff;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 0.8rem;
+      margin: 1rem 0 0.2rem;
+      align-items: center;
+    }
+    button {
+      background: #1e1e2f;
+      border: none;
+      color: white;
+      font-weight: 500;
+      padding: 0.6rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: 0.15s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      border: 1px solid #2e2e44;
+    }
+    button:hover {
+      background: #2e2e4a;
+      transform: scale(0.97);
+    }
+    button.secondary {
+      background: white;
+      color: #1e1e2f;
+      border: 1px solid #cdd3e3;
+    }
+    button.secondary:hover {
+      background: #f0f2fa;
+    }
+    .output-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .copy-feedback {
+      font-size: 0.8rem;
+      color: #2e7d32;
+      background: #e6f6e6;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      opacity: 0;
+      transition: 0.2s;
+      pointer-events: none;
+    }
+    .copy-feedback.show {
+      opacity: 1;
+    }
+    .seo-stats {
+      background: #f2f5ff;
+      border-radius: 40px;
+      padding: 0.3rem 1rem;
+      font-size: 0.8rem;
+      color: #2e3a8c;
+      font-weight: 450;
+    }
+    .ad-placeholder {
+      margin: 2rem 0 1.5rem;
+      background: #f2f4fa;
+      border-radius: 24px;
+      padding: 1rem 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #e2e7f2;
+    }
+    .ad-text {
+      font-weight: 450;
+      color: #2b2b44;
+    }
+    .ad-badge {
+      background: #d9def5;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      color: #1f2a6e;
+    }
+    .affiliate-resources {
+      background: #ffffff;
+      border: 1px solid #e4e9f2;
+      border-radius: 28px;
+      padding: 1.2rem 1.5rem;
+      margin: 1.5rem 0 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .affiliate-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 1.8rem;
+    }
+    .affiliate-links a {
+      color: #2e3a8c;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px dashed #bcc4e0;
+    }
+    .affiliate-links a:hover {
+      color: #121826;
+    }
+    .privacy-note {
+      font-size: 0.75rem;
+      color: #5f5f7a;
+      background: #f0f2f9;
+      padding: 0.6rem 1.2rem;
+      border-radius: 60px;
+      display: inline-block;
+      margin-top: 0.8rem;
+      border: 1px solid #e2e6f0;
+    }
+    .footer-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.8rem;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #e6eaf2;
+      margin: 1rem 0;
+    }
+    .small {
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>
+      <span>📋 Clipboard Output SEO Tool</span>
+      <span class="badge">for AI Codex</span>
+    </h1>
+    <div class="subhead">
+      ⚡ Paste CSV or JSON → get clean, SEO‑optimised clipboard output. Built for <strong>Etsy sellers</strong>, Shopify CSV editors, Amazon FBA calculators & developer productivity.
+    </div>
+  </header>
+
+  <!-- Core tool: CSV/JSON to SEO clipboard output -->
+  <div class="tool-grid">
+    <div class="input-area">
+      <label for="inputData">📄 Input (CSV or JSON)</label>
+      <textarea id="inputData" placeholder="Paste your CSV or JSON here ...&#10;Example:&#10;title,keywords,price&#10;Wooden bowl,home decor,24.99&#10;or JSON array / object" spellcheck="false"></textarea>
+      <div class="actions">
+        <button id="convertBtn">✨ Convert & SEO‑format</button>
+        <button id="clearBtn" class="secondary">Clear</button>
+        <span id="inputStats" class="seo-stats">0 chars</span>
+      </div>
+    </div>
+    <div class="output-area">
+      <div class="output-header">
+        <label>📋 SEO‑ready output</label>
+        <div>
+          <button id="copyBtn" class="secondary">📑 Copy</button>
+          <span id="copyFeedback" class="copy-feedback">Copied!</span>
+        </div>
+      </div>
+      <textarea id="outputData" placeholder="Transformed output appears here ..." readonly spellcheck="false"></textarea>
+      <div class="actions">
+        <span id="outputStats" class="seo-stats">0 chars</span>
+        <span id="seoHint" style="font-size:0.75rem; color:#5f6b8a;">⏺ keyword‑rich, trimmed</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ad placeholder (visible, contextual) -->
+  <div class="ad-placeholder">
+    <span class="ad-text">📢 <strong>Etsy Seller Pro</strong> – SEO optimized listings, bulk CSV editor & keyword tool. </span>
+    <span class="ad-badge">Sponsored • codex‑tools</span>
+  </div>
+
+  <!-- Affiliate / resource section -->
+  <div class="affiliate-resources">
+    <span style="font-weight:500;">🔗 Resources for sellers & devs</span>
+    <div class="affiliate-links">
+      <a href="#" onclick="return false;">Shopify CSV Editor Pro</a>
+      <a href="#" onclick="return false;">Etsy Listing SEO Booster</a>
+      <a href="#" onclick="return false;">Amazon FBA Calculator</a>
+      <a href="#" onclick="return false;">CSV/JSON Converter Suite</a>
+    </div>
+  </div>
+
+  <!-- Privacy note + metrics -->
+  <div class="footer-meta">
+    <div class="privacy-note">
+      🔒 <strong>Privacy note:</strong> Anonymous events may be counted for product improvement. No credentials collected.
+    </div>
+    <span class="small" style="color:#6b6b88;">v1.0 • clipboard‑seo</span>
+  </div>
+  <hr>
+  <div style="display: flex; justify-content: flex-start; gap: 1rem; font-size: 0.7rem; color: #7b7b93;">
+    <span>⚙️ developer productivity tool</span>
+    <span>📦 csv/json tools</span>
+    <span>🛒 shopify seller seo</span>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // ---------- DOM refs ----------
+    const inputEl = document.getElementById('inputData');
+    const outputEl = document.getElementById('outputData');
+    const convertBtn = document.getElementById('convertBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const copyFeedback = document.getElementById('copyFeedback');
+    const inputStats = document.getElementById('inputStats');
+    const outputStats = document.getElementById('outputStats');
+    const seoHint = document.getElementById('seoHint');
+
+    // ---------- helper: reportEvent (privacy‑first) ----------
+    window.reportEvent = function(name, payload) {
+      if (typeof window.ORGANISM_METRICS_ENDPOINT === 'string' && window.ORGANISM_METRICS_ENDPOINT.length > 0) {
+        try {
+          const body = JSON.stringify({ event: name, payload: payload || {}, timestamp: Date.now() });
+          fetch(window.ORGANISM_METRICS_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: body,
+            keepalive: true
+          }).catch(() => {}); // silent fail
+        } catch (e) { /* ignore */ }
+      }
+    };
+
+    // ---------- core conversion: CSV or JSON -> SEO clipboard text ----------
+    function convertToSEOOutput(raw) {
+      if (!raw || raw.trim() === '') return '';
+
+      const trimmed = raw.trim();
+      let parsedArray = null;
+
+      // try JSON first
+      try {
+        const parsed = JSON.parse(trimmed);
+        if (Array.isArray(parsed)) {
+          parsedArray = parsed;
+        } else if (typeof parsed === 'object' && parsed !== null) {
+          // treat single object as array with one item
+          parsedArray = [parsed];
+        }
+      } catch (e) {
+        // not JSON -> try CSV
+      }
+
+      // CSV branch
+      if (!parsedArray) {
+        const lines = trimmed.split(/\r?\n/).filter(line => line.trim() !== '');
+        if (lines.length === 0) return '';
+        const header = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+        const rows = [];
+        for (let i = 1; i < lines.length; i++) {
+          const cells = lines[i].split(',').map(c => c.trim().replace(/^"|"$/g, ''));
+          if (cells.length === header.length) {
+            const obj = {};
+            header.forEach((h, idx) => { obj[h] = cells[idx] || ''; });
+            rows.push(obj);
+          } else {
+            // fallback: keep raw line
+            rows.push({ raw: lines[i] });
+          }
+        }
+        parsedArray = rows;
+      }
+
+      // now build SEO‑optimised clipboard output (keyword‑rich, flat, trimmed)
+      if (!parsedArray || parsedArray.length === 0) return '';
+
+      // extract meaningful fields: title, name, keywords, description, tags, etc.
+      const seoStrings = parsedArray.map((item, index) => {
+        if (typeof item !== 'object') return String(item);
+        const fields = [];
+        // priority keys for Etsy/Shopify/Amazon
+        const keyPriority = ['title', 'name', 'listing title', 'product name', 'keywords', 'tags', 'description', 'short description', 'bullet1', 'bullet2', 'bullet3', 'category', 'type'];
+        keyPriority.forEach(k => {
+          const val = item[k] || item[k.toLowerCase()] || item[k.replace(/\s/g, '')] || item[k.replace(/\s/g, '_')];
+          if (val && typeof val === 'string' && val.trim()) {
+            fields.push(val.trim());
+          }
+        });
+        // also add any other string value (limit noise)
+        Object.keys(item).forEach(key => {
+          if (!keyPriority.includes(key) && !keyPriority.includes(key.toLowerCase())) {
+            const v = item[key];
+            if (v && typeof v === 'string' && v.trim() && !fields.includes(v.trim())) {
+              // avoid too many fields
+              if (fields.length < 8) fields.push(v.trim());
+            }
+          }
+        });
+        if (fields.length === 0) {
+          // fallback: join all values
+          return Object.values(item).filter(v => typeof v === 'string').join(', ');
+        }
+        return fields.join(' · ');
+      });
+
+      // join with newline, remove empty
+      const nonEmpty = seoStrings.filter(s => s.length > 0);
+      if (nonEmpty.length === 0) return '';
+
+      // add a summary line (keyword rich) based on first item
+      let prefix = '';
+      if (parsedArray.length > 0 && typeof parsedArray[0] === 'object') {
+        const first = parsedArray[0];
+        const possibleTitle = first.title || first.name || first['listing title'] || first['product name'] || '';
+        if (possibleTitle) {
+          prefix = `📌 SEO snippet: ${possibleTitle} (${parsedArray.length} items)\n━━━━━━━━━━━━━━━━━━━━━━\n`;
+        } else {
+          prefix = `📦 ${parsedArray.length} items · SEO ready\n━━━━━━━━━━━━━━━━━━━━━━\n`;
+        }
+      } else {
+        prefix = `📦 ${parsedArray.length} items\n━━━━━━━━━━━━━━━━━━━━━━\n`;
+      }
+
+      return prefix + nonEmpty.join('\n');
+    }
+
+    // ---------- update UI ----------
+    function updateStats() {
+      const inLen = inputEl.value.length;
+      inputStats.textContent = `${inLen} chars`;
+      const outLen = outputEl.value.length;
+      outputStats.textContent = `${outLen} chars`;
+      // seo hint
+      if (outLen > 0) {
+        seoHint.textContent = '✅ keyword‑optimized, trimmed';
+      } else {
+        seoHint.textContent = '⏺ keyword‑rich, trimmed';
+      }
+    }
+
+    function runConversion() {
+      const raw = inputEl.value;
+      const result = convertToSEOOutput(raw);
+      outputEl.value = result;
+      updateStats();
+      // report conversion event (anonymous)
+      reportEvent('clipboard_seo_conversion', { inputLength: raw.length, outputLength: result.length });
+    }
+
+    // ---------- event listeners ----------
+    convertBtn.addEventListener('click', function() {
+      runConversion();
+    });
+
+    clearBtn.addEventListener('click', function() {
+      inputEl.value = '';
+      outputEl.value = '';
+      updateStats();
+      reportEvent('clipboard_seo_clear', {});
+    });
+
+    copyBtn.addEventListener('click', function() {
+      const text = outputEl.value;
+      if (!text) {
+        copyFeedback.textContent = 'Nothing to copy';
+        copyFeedback.classList.add('show');
+        setTimeout(() => copyFeedback.classList.remove('show'), 1200);
+        return;
+      }
+      navigator.clipboard.writeText(text).then(() => {
+        copyFeedback.textContent = 'Copied!';
+        copyFeedback.classList.add('show');
+        setTimeout(() => copyFeedback.classList.remove('show'), 1800);
+        reportEvent('clipboard_seo_copy', { length: text.length });
+      }).catch(() => {
+        // fallback
+        outputEl.select();
+        document.execCommand('copy');
+        copyFeedback.textContent = 'Copied!';
+        copyFeedback.classList.add('show');
+        setTimeout(() => copyFeedback.classList.remove('show'), 1800);
+      });
+    });
+
+    // auto‑convert on paste? (optional but nice)
+    let pasteTimeout;
+    inputEl.addEventListener('paste', function() {
+      clearTimeout(pasteTimeout);
+      pasteTimeout = setTimeout(() => {
+        runConversion();
+      }, 80);
+    });
+
+    // also convert on input if user wants (debounced)
+    let inputTimeout;
+    inputEl.addEventListener('input', function() {
+      clearTimeout(inputTimeout);
+      inputTimeout = setTimeout(() => {
+        // only if content changed significantly
+        if (inputEl.value.length > 0) {
+          runConversion();
+        } else {
+          outputEl.value = '';
+          updateStats();
+        }
+      }, 350);
+    });
+
+    // initial stats
+    updateStats();
+
+    // report tool load (anonymous)
+    reportEvent('clipboard_seo_tool_loaded', {});
+
+    // expose for debugging
+    window.__tool = { convertToSEOOutput };
+  })();
+</script>
+
+<!-- ORGANISM_METRICS_ENDPOINT example (uncomment to enable) -->
+<!-- <script>window.ORGANISM_METRICS_ENDPOINT = "https://metrics.example.com/collect";</script> -->
+<!-- privacy note: only if endpoint configured, events are sent anonymously -->
+
+<section data-organism-discovery="hub" style="margin:32px auto 20px;max-width:1040px;padding:16px;border-top:1px solid #d9e2ec;color:#475569;font:14px/1.5 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+  <strong style="display:block;color:#0f172a;margin-bottom:6px">More free browser tools</strong>
+  <p style="margin:0 0 8px">This page is part of an autonomous micro-tool network. Explore the live tool directory and related utilities.</p>
+  <p style="margin:0"><a href="https://kingms888.github.io/do-digital-organism-index/" style="color:#0f766e;font-weight:700">Open the tool directory</a> </p>
+</section>
+</body>
+</html>
